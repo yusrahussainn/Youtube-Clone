@@ -1,110 +1,82 @@
-import React from "react";
-import video1 from '../assets/video1.mp4';
-import video2 from '../assets/video2.mp4';
-import video3 from '../assets/video3.mp4';
-import video4 from '../assets/video4.mp4';
-import video5 from '../assets/video5.mp4';
-import video6 from '../assets/video6.mp4';
-import video7 from '../assets/video7.mp4';
-import video8 from '../assets/video8.mp4';
-import video9 from '../assets/video9.mp4';
+import React, { useEffect, useState } from 'react';
 import '../style.css';
 
-const videoSources = [video1, video2, video3, video4, video5, video6, video7, video8, video9];
+const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
 
-const videoTitles = [
-  "A Day in New York",
-  "Serendipity",
-  "Countryside Adventures",
-  "Literally in the Air",
-  "Light at the End of the Tunnel",
-  "Cute Puppy",
-  "Village Life",
-  "Trip to Miami",
-  "Matrix"
-];
+const Videos = ({ searchQuery }) => {
+  const [videos, setVideos] = useState([]);
 
-const videoViews = [
-  "1.2M views · 2 days ago",
-  "845K views · 5 days ago",
-  "4.5M views · 1 week ago",
-  "300K views · 3 days ago",
-  "2M views · 6 days ago",
-  "1.9M views · 2 weeks ago",
-  "500K views · 4 days ago",
-  "1.1M views · 1 day ago",
-  "900K views · 8 hours ago"
-];
+  useEffect(() => {
+    if (!searchQuery) return;
 
-const videoRelated = [
-  "#citylife #vlog",
-  "#nature #travel",
-  "#cows #moo",
-  "#tickets #travel",
-  "#poems #philosophy",
-  "#cuties #animals",
-   "#travel #france",
-  "#ocean #animals",
-  "#programming #react"
-];
+    const fetchVideos = async () => {
+      try {
+        const searchRes = await fetch(
+          `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${searchQuery}&maxResults=9&type=video&key=${API_KEY}`
+        );
+        const searchData = await searchRes.json();
+        const videoItems = searchData.items || [];
 
-const Videos = () => {
+        const videoIds = videoItems.map(item => item.id.videoId).join(',');
+
+        const detailsRes = await fetch(
+          `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics,contentDetails&id=${videoIds}&key=${API_KEY}`
+        );
+        const detailsData = await detailsRes.json();
+
+        setVideos(detailsData.items || []);
+      } catch (error) {
+        console.error('Error fetching videos:', error);
+      }
+    };
+
+    fetchVideos();
+  }, [searchQuery]);
+
+  const formatViews = (num) => {
+    if (num >= 1e6) return (num / 1e6).toFixed(1) + 'M views';
+    if (num >= 1e3) return (num / 1e3).toFixed(1) + 'K views';
+    return num + ' views';
+  };
+
+  const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    const now = new Date();
+    const diffMs = now - date;
+    const diffDays = diffMs / (1000 * 60 * 60 * 24);
+    if (diffDays < 1) return 'Today';
+    if (diffDays < 7) return `${Math.floor(diffDays)} days ago`;
+    if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+    if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
+    return `${Math.floor(diffDays / 365)} years ago`;
+  };
+
   return (
     <div className="video-container">
-  {videoSources.map((src, index) => (
-    <div key={index} className="video-card">
-      <video controls className="video-element" src={src} />
-      <div className="video-meta">
-        <p className="video-title">{videoTitles[index]}</p>
-        <p className="video-info">{videoViews[index]}</p>
-        <p className="video-related">{videoRelated[index]}</p>
-      </div>
-    </div>
-  ))}
-</div>
-  );
-};
+      {videos.map((video) => (
+        <div key={video.id} className="video-card">
+          <iframe
+            className="video-element"
+            src={`https://www.youtube.com/embed/${video.id}`}
+            frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            title={video.snippet.title}
+          ></iframe>
+          <div className="video-meta">
+            <p className="video-title">{video.snippet.title}</p>
+            <p className="video-info">
+              {video.snippet.channelTitle} • {formatViews(video.statistics.viewCount)} • {formatDate(video.snippet.publishedAt)}
+            </p>
+            {video.snippet.liveBroadcastContent !== 'none' && (
+  <p className="video-related">#{video.snippet.liveBroadcastContent}</p>
+)}
 
-const styles = {
-  container: {
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
-    gap: "20px",
-    width: "1500px",
-    padding: "30px",
-    marginLeft: "5px",
-    boxSizing: "border-box",
-  },
-  videoCard: {
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-    maxWidth: "500px",  // Enforce max width per card
-  },
-  video: {
-    width: "100%",
-    height: "auto",
-    borderRadius: "8px",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
-  },
-  meta: {
-    padding: "8px 0",
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: "16px",
-    margin: "4px 0",
-  },
-  info: {
-    color: "#555",
-    fontSize: "14px",
-    margin: "2px 0",
-  },
-  related: {
-    color: "#888",
-    fontSize: "13px",
-    margin: "2px 0",
-  }
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default Videos;

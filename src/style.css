@@ -355,46 +355,70 @@ h1 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  width: 1500px;
-  padding: 30px;
-  margin-left: 5px;
-  box-sizing: border-box;
+  width: 1490px;
+  margin: 30px auto;
 }
 
 .video-card {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 500px;
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  margin-left:30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .video-element {
   width: 100%;
-  height: auto;
+  height: 200px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .video-meta {
-  padding: 8px 0;
-  text-align: left; /* Ensures left alignment */
+  margin-top: 10px;
 }
-
 
 .video-title {
-  font-weight: bold;
   font-size: 16px;
-  margin: 4px 0;
+  font-weight: bold;
 }
+
+/* .video-info {
+  font-size: 14px;
+  color: #666;
+} */
 
 .video-info {
-  color: #555;
   font-size: 14px;
-  margin: 2px 0;
+  color: #555;
+  line-height: 1.4;
 }
 
+
 .video-related {
-  color: #888;
   font-size: 13px;
-  margin: 2px 0;
+  color: #999;
+}
+
+.signin-button-container {
+  position: absolute;
+  top: 1px;
+  right: 10px;
+}
+
+.optionss-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.options-icon {
+  position: absolute;
+  top: 25px;
+  right: 100px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
 }
