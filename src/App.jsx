@@ -25,7 +25,7 @@ export default function App() {
         <img src={optionsIcon} alt="Options" className="options-icon" />
       </button>
 
-      {isModalOpen && <OptionsModal onClose={() => setIsModalOpen(false)} />}
+      <OptionsModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
       <SuggestionsBar />
       <Videos searchQuery={searchQuery} />

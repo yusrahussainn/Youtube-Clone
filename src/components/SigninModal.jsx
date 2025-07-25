@@ -1,5 +1,5 @@
 import React from "react";
-import "../style.css"; // Make sure the path is correct
+import "../style.css";
 
 export default function SigninModal({ onClose }) {
   return (

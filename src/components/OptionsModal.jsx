@@ -1,20 +1,19 @@
 import React from "react";
 import "../style.css";
+import { OPTIONS } from "../constants";
 
-export default function OptionsModal({ onClose }) {
+export default function OptionsModal({ isOpen, onClose }) {
+  if (!isOpen) return null;
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="options-box" onClick={(e) => e.stopPropagation()}>
         <ul className="options-list">
-          <li className="options-item">Your data in YouTube</li>
-          <li className="options-item">Appearance: Device theme</li>
-          <li className="options-item">Language: English</li>
-          <li className="options-item">Restricted Mode: Off</li>
-          <li className="options-item">Location: Pakistan</li>
-          <li className="options-item">Keyboard shortcuts</li>
-          <li className="options-item">Settings</li>
-          <li className="options-item">Help</li>
-          <li className="options-item">Send feedback</li>
+          {OPTIONS.map((item, index) => (
+            <li key={index} className="options-item">
+              {item}
+            </li>
+          ))}
         </ul>
       </div>
     </div>

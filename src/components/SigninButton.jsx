@@ -14,7 +14,6 @@ export default function SigninButton() {
 
   return (
     <div>
-      <br />
       <button className="signin-button" onClick={handleOpenModal}>
         Sign in
       </button>

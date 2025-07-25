@@ -384,11 +384,6 @@ h1 {
   font-weight: bold;
 }
 
-/* .video-info {
-  font-size: 14px;
-  color: #666;
-} */
-
 .video-info {
   font-size: 14px;
   color: #555;
@@ -405,6 +400,10 @@ h1 {
   position: absolute;
   top: 1px;
   right: 10px;
+}
+
+.signin-button {
+  margin-top:15px;
 }
 
 .optionss-button {
