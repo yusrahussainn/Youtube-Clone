@@ -1,23 +1,19 @@
 import React, { useState } from "react";
 import SigninModal from "../components/SigninModal";
+import "../Style.css";
 
 export default function SigninButton() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSigninModalOpen, setIsSigninModalOpen] = useState(false);
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  const handleOpenModal = () => setIsSigninModalOpen(true);
+  const handleCloseModal = () => setIsSigninModalOpen(false);
 
   return (
     <div>
       <button className="signin-button" onClick={handleOpenModal}>
         Sign in
       </button>
-      {isModalOpen && <SigninModal onClose={handleCloseModal} />}
+      <SigninModal isOpen={isSigninModalOpen} onClose={handleCloseModal} />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import img from "../assets/search.png";
-import mic from "../assets/mic.png";
-import "../style.css";
+import img from "../assets/Search.png";
+import mic from "../assets/Mic.png";
+import "../Style.css";
 
 export default function SearchBar({ onSearch }) {
   const [term, setTerm] = useState("");

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../style.css';
+import '../Style.css';
 
 const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
 

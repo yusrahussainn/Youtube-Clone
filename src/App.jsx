@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import SearchBar from "./components/SearchBar";
 import SideBar from "./components/SideBar";
 import SigninButton from "./components/SigninButton";
-import optionsIcon from "./assets/options.svg";
+import optionsIcon from "./assets/Options.svg";
 import Videos from "./components/Videos";
 import SuggestionsBar from "./components/SuggestionsBar";
 import OptionsModal from "./components/OptionsModal";
-import "./style.css";
+import "./Style.css";
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSigninModalOpen, setIsSigninModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("travel vlog");
 
   return (
@@ -18,7 +19,7 @@ export default function App() {
       <SideBar />
 
       <div className="signin-button-container">
-        <SigninButton />
+        <SigninButton isOpen={isSigninModalOpen} onClose={() => setIsSigninModalOpen(false)} />  
       </div>
 
       <button onClick={() => setIsModalOpen(true)} className="optionss-button">

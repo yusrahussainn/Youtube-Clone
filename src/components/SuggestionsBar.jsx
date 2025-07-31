@@ -1,6 +1,6 @@
 import React from "react";
-import "../style.css";
-import { SUGGESTIONS } from "../constants";
+import "../Style.css";
+import { SUGGESTIONS } from "../Constants";
 
 const SuggestionsBar = () => {
   return (

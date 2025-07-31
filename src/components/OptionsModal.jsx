@@ -1,12 +1,13 @@
 import React from "react";
-import "../style.css";
-import { OPTIONS } from "../constants";
+import "../Style.css";
+import { OPTIONS } from "../Constants";
 
-export default function OptionsModal({ isOpen, onClose }) {
-  if (!isOpen) return null;
-
+const OptionsModal = React.memo(function OptionsModal({ isOpen, onClose }) {
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div
+      className={`modal-overlay ${isOpen ? "visible" : "hidden"}`}
+      onClick={onClose}
+    >
       <div className="options-box" onClick={(e) => e.stopPropagation()}>
         <ul className="options-list">
           {OPTIONS.map((item, index) => (
@@ -18,4 +19,6 @@ export default function OptionsModal({ isOpen, onClose }) {
       </div>
     </div>
   );
-}
+});
+
+export default OptionsModal;

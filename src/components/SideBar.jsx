@@ -1,6 +1,6 @@
 import React from 'react';
-import sideBar from '../assets/sideBar.jpg';
-import youtube from '../assets/youtube.png';
+import sideBar from '../assets/SideBar.jpg';
+import youtube from '../assets/Youtube.png';
 import SigninButton from './SigninButton';
 
 export default function SideBar() {

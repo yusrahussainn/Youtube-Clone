@@ -1,9 +1,9 @@
 import React from "react";
-import "../style.css";
+import "../Style.css";
 
-export default function SigninModal({ onClose }) {
+const SigninModal = React.memo(function SigninModal({ isOpen, onClose }) {
   return (
-    <div className="modal-overlay">
+    <div className={`modal-overlay ${isOpen ? "visible" : "hidden"}`}>
       <div className="modal-box">
         <button onClick={onClose} className="modal-close">×</button>
         <h2 className="modal-title">Sign In</h2>
@@ -15,4 +15,6 @@ export default function SigninModal({ onClose }) {
       </div>
     </div>
   );
-}
+});
+
+export default SigninModal;
